@@ -108,6 +108,7 @@ export default function Canvas() {
 
               {/* 左眉毛 */}
               <Line
+                draggable
                 points={[
                   baseX - 50,
                   250 + eyebrowsLevel,
@@ -118,6 +119,7 @@ export default function Canvas() {
               />
               {/* 右眉毛 */}
               <Line
+                draggable
                 points={[
                   baseX + 20,
                   250 - eyebrowsLevel,
@@ -156,6 +158,7 @@ export default function Canvas() {
               {/* 閉じた左目 */}
               {eyeScale < 1 && (
                 <Line
+                  draggable
                   points={[baseX - 60, 290, baseX - 20, 290]}
                   stroke={"black"}
                 />
@@ -163,6 +166,7 @@ export default function Canvas() {
               {/* 閉じた左目 */}
               {eyeScale < 1 && (
                 <Line
+                  draggable
                   points={[baseX + 20, 290, baseX + 60, 290]}
                   stroke={"black"}
                 />
@@ -196,11 +200,13 @@ export default function Canvas() {
 
               {/* 口の上部分 */}
               <Line
+                draggable
                 points={[baseX - 35, 340, baseX + 35, 340]}
                 stroke={"black"}
               />
               {/* 口の下部分 */}
               <Line
+                draggable
                 points={[
                   baseX - 35,
                   340,
