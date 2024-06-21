@@ -16,7 +16,7 @@ export default function Canvas() {
   const [eyeScale, setEyeScale] = useState<number>(1);
   const stageRef = useRef<Konva.Stage>(null);
 
-  const baseX = 350;
+  const baseX = 300;
 
   useEffect(() => {
     if (stageRef && stageRef.current) {
