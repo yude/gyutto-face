@@ -8,12 +8,15 @@ import Button from "react-bootstrap/Button";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { css, keyframes } from '@emotion/css';
 
 export default function Canvas() {
   const [imageURL, _] = useState<string>();
   const [eyebrowsLevel, setEyebrowsLevel] = useState<number>(5);
   const [mousePosition, setMousePosition] = useState<number>(345);
   const [eyeScale, setEyeScale] = useState<number>(1);
+  const [rotate, setRotate] = useState<boolean>(false);
+  const [rotationSpeed, setRotationSpeed] = useState<number>(1);
   const stageRef = useRef<Konva.Stage>(null);
 
   const baseX = 300;
@@ -71,6 +74,27 @@ export default function Canvas() {
     setEyeScale(parseInt(e.target.value));
   };
 
+  const rotationKeyframes = keyframes`
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  `;
+
+  const rotationStyle = css`
+    animation: ${rotationKeyframes} infinite ${1.0 / rotationSpeed}s linear;
+  `;
+
+  const handleRotationSwitch = (e: ChangeEvent<HTMLInputElement>) => {
+    setRotate(e.target.checked);
+  };
+
+  const handleRotationSpeedChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setRotationSpeed(parseFloat(e.target.value));
+  };
+
   function downloadURI(uri: string, name: string) {
     var link = document.createElement("a");
     link.download = name;
@@ -93,7 +117,13 @@ export default function Canvas() {
 
       <div className="container mx-auto">
         <div>
-          <Stage width={600} height={600} ref={stageRef}>
+          <Stage
+            width={600}
+            height={600}
+            ref={stageRef}
+            className={rotate ? rotationStyle : ""}
+            style={{width: "600px"}}
+          >
             <Layer>
               {/* 顔の輪郭 */}
               <Circle
@@ -254,6 +284,28 @@ export default function Canvas() {
             style={{ width: "20rem", marginLeft: "18px", marginRight: "10px" }}
           />
           <span>{Math.round((eyebrowsLevel * 100) / 13)} %</span>
+        </div>
+        <div>
+          <Form.Label>回転</Form.Label>
+          <Form.Check
+            inline
+            type="switch"
+            onChange={handleRotationSwitch}
+            style={{ width: "20rem", marginLeft: "18px", marginRight: "10px" }}
+          />
+        </div>
+        <div>
+          <Form.Label>回転周期</Form.Label>
+          <Form.Range
+            value={rotationSpeed}
+            onChange={handleRotationSpeedChange}
+            min={0.1}
+            max={10}
+            step={0.1}
+            default={1}
+            style={{ width: "20rem", marginLeft: "18px", marginRight: "10px" }}
+          />
+          <span>{rotationSpeed} RPS</span>
         </div>
         <Button variant="outline-primary m-1" onClick={handleSaveAsImage}>
           <FontAwesomeIcon icon={faFloppyDisk} /> 画像として保存
