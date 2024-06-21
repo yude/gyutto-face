@@ -249,7 +249,7 @@ export default function Canvas() {
           <Form.Range
             value={eyebrowsLevel}
             onChange={handleEyebrowsLevelChange}
-            min={0}
+            min={-13}
             max={13}
             style={{ width: "20rem", marginLeft: "18px", marginRight: "10px" }}
           />
