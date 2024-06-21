@@ -302,7 +302,7 @@ export default function Canvas() {
             min={0.1}
             max={10}
             step={0.1}
-            default={1}
+            defaultValue={1}
             style={{ width: "20rem", marginLeft: "18px", marginRight: "10px" }}
           />
           <span>{rotationSpeed} RPS</span>
