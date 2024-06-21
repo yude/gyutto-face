@@ -295,7 +295,7 @@ export default function Canvas() {
           />
         </div>
         <div>
-          <Form.Label>回転周期</Form.Label>
+          <Form.Label>回転スピード</Form.Label>
           <Form.Range
             value={rotationSpeed}
             onChange={handleRotationSpeedChange}
